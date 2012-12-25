@@ -5,6 +5,7 @@
 <xsl:template name="months"> <!-- display a list of 12 months counting back from current month (for e.g. archive) -->
 	<xsl:param name="displaymonth" select="$this-month"/> <!-- what we're going to display, starting with current month number -->
 	<xsl:param name="countmonths" select="12" /> <!-- months in a year (duh!) -->
+	<xsl:param name="path" select="'news/archive'" /> <!-- default path -->
 	<xsl:variable name="last-year" select="$this-year - 1" /> <!-- last year -->
 	
 	<xsl:if test="$countmonths &gt; 0">
@@ -17,7 +18,7 @@
 							<xsl:text>active</xsl:text>
 						</xsl:attribute>
 					</xsl:if>
-					<a href="{$root}/news/archive/{concat($this-year,'-',format-number($displaymonth,'00'))}">
+					<a href="{$root}/{$path}/{concat($this-year,'-',format-number($displaymonth,'00'))}">
 					<xsl:call-template name="format-date">
 						<xsl:with-param name="date" select="concat($this-year,'-',format-number($displaymonth,'00'))" />
 						<xsl:with-param name="format" select="'M'" />
@@ -28,7 +29,7 @@
 			<!-- LAST YEAR -->
 			<xsl:otherwise>
 				<li>
-					<a href="{$root}/news/archive/{concat($last-year,'-',format-number((-1 * ($displaymonth - 11)),'00'))}">
+					<a href="{$root}/{$path}/{concat($last-year,'-',format-number((-1 * ($displaymonth - 11)),'00'))}">
 					<xsl:call-template name="format-date">
 						<xsl:with-param name="date" select="concat($last-year,'-',format-number((-1 * ($displaymonth - 11)),'00'))" />
 						<xsl:with-param name="format" select="'M'" />
@@ -39,6 +40,7 @@
 		</xsl:choose>
 	
 		<xsl:call-template name="months">
+			<xsl:with-param name="path" select="$path" />
 			<xsl:with-param name="displaymonth" select="$displaymonth - 1"/>
 			<xsl:with-param name="countmonths" select="$countmonths - 1"/>
 		</xsl:call-template>
