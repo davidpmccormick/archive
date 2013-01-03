@@ -13,7 +13,7 @@
 			<!-- THIS YEAR -->
 			<xsl:when test="$displaymonth &gt; 0">
 				<li>
-					<xsl:if test="$current-page-id = 6 and $date = concat($this-year,'-',format-number($displaymonth,'00'))">
+					<xsl:if test="$date = concat($this-year,'-',format-number($displaymonth,'00'))">
 						<xsl:attribute name="class">
 							<xsl:text>active</xsl:text>
 						</xsl:attribute>
@@ -29,9 +29,14 @@
 			<!-- LAST YEAR -->
 			<xsl:otherwise>
 				<li>
-					<a href="{$root}/{$path}/{concat($last-year,'-',format-number((-1 * ($displaymonth - 11)),'00'))}">
+					<xsl:if test="$date = concat($last-year,'-',format-number(($displaymonth + 12),'00'))">
+						<xsl:attribute name="class">
+							<xsl:text>active</xsl:text>
+						</xsl:attribute>
+					</xsl:if>
+					<a href="{$root}/news/archive/{concat($last-year,'-',format-number(($displaymonth + 12),'00'))}">
 					<xsl:call-template name="format-date">
-						<xsl:with-param name="date" select="concat($last-year,'-',format-number((-1 * ($displaymonth - 11)),'00'))" />
+						<xsl:with-param name="date" select="concat($last-year,'-',format-number(($displaymonth + 12),'00'))" />
 						<xsl:with-param name="format" select="'M'" />
 					</xsl:call-template>
 					</a>
