@@ -29,9 +29,9 @@
 			<!-- LAST YEAR -->
 			<xsl:otherwise>
 				<li>
-					<a href="{$root}/{$path}/{concat($last-year,'-',format-number((-1 * ($displaymonth - 11)),'00'))}">
+					<a href="{$root}/news/archive/{concat($last-year,'-',format-number(($displaymonth + 12),'00'))}">
 					<xsl:call-template name="format-date">
-						<xsl:with-param name="date" select="concat($last-year,'-',format-number((-1 * ($displaymonth - 11)),'00'))" />
+						<xsl:with-param name="date" select="concat($last-year,'-',format-number(($displaymonth + 12),'00'))" />
 						<xsl:with-param name="format" select="'M'" />
 					</xsl:call-template>
 					</a>
